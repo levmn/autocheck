@@ -18,6 +18,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 public class Conexao {
 
 	private static final Dotenv dotenv = Dotenv.load();
+	private Connection conn;
 
 	public Connection conexao() {
 
@@ -28,7 +29,6 @@ public class Conexao {
 			String user = dotenv.get("DB_USER");
 			String password = dotenv.get("DB_PASSWORD");
 
-			System.out.println("Conexão realizada!");
 			return DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -36,6 +36,17 @@ public class Conexao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public void closeConnection() {
+		if (conn != null) {
+			try {
+				conn.close();
+				System.out.println("Conexão com o banco de dados encerrada com sucesso.");
+			} catch (SQLException e) {
+				System.err.println("Erro ao encerrar a conexão com o banco de dados: " + e.getMessage());
+			}
+		}
 	}
 
 }

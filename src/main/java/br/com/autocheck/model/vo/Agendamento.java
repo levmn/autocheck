@@ -1,20 +1,26 @@
 package br.com.autocheck.model.vo;
 
+import java.time.LocalDateTime;
+
 public class Agendamento {
 
-	private String dataHora;
+	private LocalDateTime dataHora;
 	private boolean disponivel;
 
-	public Agendamento(String dataHora, boolean disponivel) {
+	public Agendamento() {
+
+	}
+
+	public Agendamento(LocalDateTime dataHora, boolean disponivel) {
 		this.dataHora = dataHora;
 		this.disponivel = disponivel;
 	}
 
-	public String getDataHora() {
+	public LocalDateTime getDataHora() {
 		return dataHora;
 	}
 
-	public void setDataHora(String dataHora) {
+	public void setDataHora(LocalDateTime dataHora) {
 		this.dataHora = dataHora;
 	}
 

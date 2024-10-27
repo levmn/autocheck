@@ -11,7 +11,6 @@ import br.com.autocheck.connection.Conexao;
 import br.com.autocheck.model.vo.Usuario;
 
 public class UsuarioDAO {
-
 	private Connection conn;
 
 	public UsuarioDAO() {
@@ -33,8 +32,21 @@ public class UsuarioDAO {
 		return "Usuário cadastrado com sucesso!";
 	}
 
+	public String atualizar(Usuario usuario) throws SQLException {
+		String sql = "UPDATE tb_usuario SET nome_usuario = ?, endereco_usuario = ?, telefone_usuario = ? WHERE id_usuario = ?";
+
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, usuario.getNome());
+		stmt.setString(2, usuario.getEndereco());
+		stmt.setString(3, usuario.getTelefone());
+		stmt.setInt(4, usuario.getId());
+		stmt.executeUpdate();
+		stmt.close();
+		return "Usuário atualizado com sucesso!";
+	}
+
 	public String deletar(int id) throws SQLException {
-		String sql = "DELETE FROM tb_usuario WHERE id = ?";
+		String sql = "DELETE FROM tb_usuario WHERE id_usuario = ?";
 
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, id);

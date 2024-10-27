@@ -5,5 +5,9 @@ package br.com.autocheck.bo;
  **/
 
 public class UsuarioBO {
+	
+	// Validar formato do CPF
+	// Validar número de telefone
+	// Validar endereço
 
 }
