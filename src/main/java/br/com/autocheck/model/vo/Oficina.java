@@ -8,6 +8,10 @@ public class Oficina {
 	private int numeroEndereco;
 	private String responsavel;
 
+	public Oficina() {
+
+	}
+
 	public Oficina(int id, String unidade, String cep, int numeroEndereco, String responsavel) {
 		this.id = id;
 		this.unidade = unidade;

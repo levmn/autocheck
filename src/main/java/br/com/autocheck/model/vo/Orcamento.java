@@ -10,6 +10,10 @@ public class Orcamento {
 	private double valorMaoObra;
 	private LocalDateTime dataHora;
 
+	public Orcamento() {
+
+	}
+
 	public Orcamento(int idDiagnostico, double valorFinal, double valorPecas, double valorMaoObra,
 			LocalDateTime dataHora) {
 		this.idDiagnostico = idDiagnostico;
