@@ -7,17 +7,19 @@ public class Usuario {
 	private String cpf;
 	private String endereco;
 	private String telefone;
+	private Login login;
 
 	public Usuario() {
 
 	}
 
-	public Usuario(int id, String nome, String cpf, String endereco, String telefone) {
+	public Usuario(int id, String nome, String cpf, String endereco, String telefone, Login login) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.endereco = endereco;
 		this.telefone = telefone;
+		this.login = login;
 	}
 
 	public int getId() {
@@ -60,10 +62,18 @@ public class Usuario {
 		this.telefone = telefone;
 	}
 
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", endereco=" + endereco + ", telefone="
-				+ telefone + "]";
+				+ telefone + ", login=" + login + "]";
 	}
 
 }

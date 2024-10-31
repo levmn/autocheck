@@ -15,6 +15,33 @@ public class UsuarioDAO {
 		this.conn = new Conexao().conexao();
 	}
 
+	public Usuario obterUsuarioPorCredenciais(String login, String senha) throws SQLException {
+		String sql = "SELECT u.id_usuario, u.nome_usuario, u.cpf_usuario, u.endereco_usuario, u.tel_usuario "
+				+ "FROM tb_usuario u " + "JOIN tb_login l ON u.id_usuario = l.id_usuario "
+				+ "WHERE l.login = ? AND l.senha = ?";
+		Usuario usuario = null;
+
+		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, login);
+			stmt.setString(2, senha);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				usuario = new Usuario();
+				usuario.setId(rs.getInt("id_usuario"));
+				usuario.setNome(rs.getString("nome_usuario"));
+				usuario.setCpf(rs.getString("cpf_usuario"));
+				usuario.setEndereco(rs.getString("endereco_usuario"));
+				usuario.setTelefone(rs.getString("tel_usuario"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("Erro ao obter o usuário pelas credenciais fornecidas.", e);
+		}
+
+		return usuario;
+	}
+
 	public String inserir(Usuario usuario) throws SQLException {
 		String sql = "INSERT INTO tb_usuario (id_usuario, nome_usuario, cpf_usuario, endereco_usuario, tel_usuario) VALUE (seq_tb_usuario_id.NEXTVAL, ?, ?, ?, ?)";
 

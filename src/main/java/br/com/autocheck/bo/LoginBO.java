@@ -7,5 +7,11 @@ package br.com.autocheck.bo;
 public class LoginBO {
 	
 	// Verificar tamanho de senha até 8 digitos
+	public boolean validarSenha(String senha) {
+		if (senha.length() <= 8) {
+			return true;
+		}
+		return false;
+	}
 
 }
