@@ -1,6 +1,9 @@
 package br.com.autocheck.bo;
 
+import java.sql.SQLException;
+
 import br.com.autocheck.model.dao.UsuarioDAO;
+import br.com.autocheck.model.vo.Usuario;
 
 /**
  * Esta classe lida com as regras de negócio da entidade Usuário
@@ -8,10 +11,39 @@ import br.com.autocheck.model.dao.UsuarioDAO;
 
 public class UsuarioBO {
 
-	private UsuarioDAO usuarioDAO;
+//	private UsuarioDAO usuarioDAO;
+//
+//	public UsuarioBO() {
+//		this.usuarioDAO = new UsuarioDAO();
+//	}
 
-	public UsuarioBO() {
-		this.usuarioDAO = new UsuarioDAO();
+	public void inserir(Usuario usuario) throws ClassNotFoundException, SQLException {
+
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+
+		// Regras de negócio
+
+		usuarioDAO.inserir(usuario);
+
+	}
+
+	public void atualizar(Usuario usuario) throws ClassNotFoundException, SQLException {
+
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+
+		// Regras de negócio
+
+		usuarioDAO.atualizar(usuario);
+
+	}
+
+	public void deletar(int id) throws ClassNotFoundException, SQLException {
+
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+
+		// Regras de negócio
+
+		usuarioDAO.deletar(id);
 	}
 
 	// Validar formato do CPF e CPF único
