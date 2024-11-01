@@ -1,6 +1,7 @@
 package br.com.autocheck.bo;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.com.autocheck.model.dao.UsuarioDAO;
 import br.com.autocheck.model.vo.Usuario;
@@ -44,6 +45,27 @@ public class UsuarioBO {
 		// Regras de negócio
 
 		usuarioDAO.deletar(id);
+	}
+
+	public Usuario obterPorId(int id) throws ClassNotFoundException, SQLException {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+
+		// Verificar se o ID é válido
+		if (id <= 0) {
+			throw new IllegalArgumentException("ID inválido");
+		}
+
+		// Buscar o usuário pelo ID no banco de dados
+		Usuario usuario = usuarioDAO.buscarPorId(id);
+
+		return usuario;
+	}
+
+	public ArrayList<Usuario> listar() throws ClassNotFoundException, SQLException {
+
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		return (ArrayList<Usuario>) usuarioDAO.listar();
+
 	}
 
 	// Validar formato do CPF e CPF único

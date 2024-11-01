@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.autocheck.connection.Conexao;
 import br.com.autocheck.model.vo.Usuario;
@@ -90,11 +92,11 @@ public class UsuarioDAO {
 
 			if (rs.next()) {
 				usuario = new Usuario();
-				usuario.setId(rs.getInt("id_usuario"));
-				usuario.setNome(rs.getString("nome_usuario"));
-				usuario.setCpf(rs.getString("cpf_usuario"));
-				usuario.setEndereco(rs.getString("endereco_usuario"));
-				usuario.setTelefone(rs.getString("tel_usuario"));
+				usuario.setId(rs.getInt(1));
+				usuario.setNome(rs.getString(2));
+				usuario.setCpf(rs.getString(3));
+				usuario.setEndereco(rs.getString(4));
+				usuario.setTelefone(rs.getString(5));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -102,6 +104,24 @@ public class UsuarioDAO {
 		}
 
 		return usuario;
+	}
+
+	public List<Usuario> listar() throws SQLException {
+		List<Usuario> listaUsuario = new ArrayList<Usuario>();
+		PreparedStatement stmt = conn.prepareStatement("SELECT * FROM tb_usuario");
+
+		ResultSet rs = stmt.executeQuery();
+
+		while (rs.next()) {
+			Usuario usuario = new Usuario();
+			usuario.setId(rs.getInt(1));
+			usuario.setNome(rs.getString(2));
+			usuario.setCpf(rs.getString(3));
+			usuario.setEndereco(rs.getString(4));
+			usuario.setTelefone(rs.getString(5));
+			listaUsuario.add(usuario);
+		}
+		return listaUsuario;
 	}
 
 }
