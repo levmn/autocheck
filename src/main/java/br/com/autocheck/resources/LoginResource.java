@@ -11,7 +11,7 @@ import jakarta.ws.rs.core.Response;
 
 import java.sql.SQLException;
 
-@Path("/login")
+@Path("login")
 public class LoginResource {
 
     private LoginBO loginBO;

@@ -20,7 +20,7 @@ public class UsuarioMain {
         System.out.println(resultadoInsercao);
 
         // Verificando se o usuário foi inserido
-        Usuario usuarioInserido = usuarioController.buscarUsuario(5); // Tentando buscar pelo ID que foi atribuído
+        Usuario usuarioInserido = usuarioController.buscarUsuario(1); // Tentando buscar pelo ID que foi atribuído
         if (usuarioInserido != null) {
             System.out.println("Usuário inserido: " + usuarioInserido);
         } else {
