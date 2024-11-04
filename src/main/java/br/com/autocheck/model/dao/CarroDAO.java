@@ -108,6 +108,32 @@ public class CarroDAO {
         return listaCarro;
     }
 
+    public List<Carro> listarPorUsuario(int usuarioId) throws SQLException {
+        List<Carro> listaCarroPorUsuario = new ArrayList<Carro>();
+        String sql = "SELECT c.* FROM tb_carro c " +
+                "JOIN tb_usuario_carro uc ON c.id = uc.id_carro " +
+                "WHERE uc.id_usuario = ?";
+
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, usuarioId);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Carro carro = new Carro();
+            carro.setId(rs.getInt("id_carro"));
+            carro.setChassi(rs.getString("chassi_carro"));
+            carro.setMarca(rs.getString("marca_carro"));
+            carro.setModelo(rs.getString("modelo_carro"));
+            carro.setAnoFabricacao(rs.getString("ano_fabricacao_carro"));
+            carro.setAnoModelo(rs.getString("ano_modelo_carro"));
+
+            listaCarroPorUsuario.add(carro);
+        }
+
+        System.out.println(listaCarroPorUsuario);
+        return listaCarroPorUsuario;
+    }
+
     public void inserirUsuarioCarro(Carro carro, Usuario usuario) throws SQLException {
         if (!isCarroExistente(carro.getId())) {
             throw new SQLException("Carro com ID " + carro.getId() + " não existe.");
