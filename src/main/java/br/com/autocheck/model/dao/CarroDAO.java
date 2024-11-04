@@ -18,20 +18,36 @@ public class CarroDAO {
     }
 
     public String inserir(Carro carro) throws SQLException {
-        String sql = "INSERT into tb_carro (id_carro, chassi_carro, marca_carro, modelo_carro, ano_fabricacao_carro, ano_modelo_carro) VALUES (seq_tb_carro_id.NEXTVAL, ?, ?, ?, ?, ?)";
+        String sql = "INSERT into tb_carro (id_carro, chassi_carro, marca_carro, modelo_carro, ano_fabricacao_carro, ano_modelo_carro) VALUES (tb_carro_id_carro_seq.NEXTVAL, ?, ?, ?, ?, ?)";
 
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setInt(1, carro.getId());
-        stmt.setString(2, carro.getChassi());
-        stmt.setString(3, carro.getMarca());
-        stmt.setString(4, carro.getModelo());
-        stmt.setString(5, carro.getAnoFabricacao());
-        stmt.setString(6, carro.getAnoModelo());
-        stmt.execute();
-        stmt.close();
+        PreparedStatement stmt = null;
+        ResultSet generatedKeys = null;
 
-        return "Carro cadastrado com sucesso!";
+        try {
+            stmt = conn.prepareStatement(sql, new String[]{"id_carro"});
+            stmt.setString(1, carro.getChassi());
+            stmt.setString(2, carro.getMarca());
+            stmt.setString(3, carro.getModelo());
+            stmt.setString(4, carro.getAnoFabricacao());
+            stmt.setString(5, carro.getAnoModelo());
+
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                generatedKeys = stmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int generatedId = generatedKeys.getInt(1);
+                    carro.setId(generatedId);
+                }
+            }
+
+            return "Carro cadastrado com sucesso!";
+        } finally {
+            if (generatedKeys != null) generatedKeys.close();
+            if (stmt != null) stmt.close();
+        }
     }
+
 
     public String deletar(int id) throws SQLException {
         String sql = "DELETE FROM tb_carro WHERE id_carro = ?";
@@ -66,16 +82,57 @@ public class CarroDAO {
         return listaCarro;
     }
 
-    public void inserirUsuarioCarro(Carro carro, Usuario usuario) {
-        String sql = "INSERT into tb_usuario_carro (id_usuario, id_carro) VALUES (?, ?)";
+    public void inserirUsuarioCarro(Carro carro, Usuario usuario) throws SQLException {
+        if (!isCarroExistente(carro.getId())) {
+            throw new SQLException("Carro com ID " + carro.getId() + " não existe.");
+        }
 
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
+        String sql = "INSERT INTO tb_usuario_carro (id_usuario, id_carro, ativo) VALUES (?, ?, ?)";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, usuario.getId());
             stmt.setInt(2, carro.getId());
+            stmt.setString(3, "s");
+
             stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new SQLException("Erro ao inserir usuário e carro na tabela relacional.", e);
+        }
+    }
+
+    public boolean atualizarStatusCarro(int id, boolean ativo) throws SQLException {
+        String sql = "UPDATE tb_carro SET ativo = ? WHERE id_carro = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, ativo ? "S" : "N");
+            stmt.setInt(2, id);
+
+            int linhasAfetadas = stmt.executeUpdate();
+            return linhasAfetadas > 0;
+        }
+    }
+
+    public boolean isChassiExistente(String chassi) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM tb_carro WHERE chassi_carro = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, chassi);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt(1) > 0;
+        }
+        return false;
+    }
+
+    private boolean isCarroExistente(int idCarro) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM tb_carro WHERE id_carro = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idCarro);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+            return false;
         }
     }
 }

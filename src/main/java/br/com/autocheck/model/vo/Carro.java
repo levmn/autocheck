@@ -12,6 +12,14 @@ public class Carro {
 
     }
 
+    public Carro( String chassi, String marca, String modelo, String anoFabricacao, String anoModelo) {
+        this.chassi = chassi;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.anoFabricacao = anoFabricacao;
+        this.anoModelo = anoModelo;
+    }
+
     public Carro(int id, String chassi, String marca, String modelo, String anoFabricacao, String anoModelo) {
         this.id = id;
         this.chassi = chassi;
