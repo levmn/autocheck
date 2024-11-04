@@ -18,14 +18,14 @@ public class LoginBO {
 
         Login usuarioAutenticado = loginDAO.autenticar(login, senha);
         if (usuarioAutenticado == null) {
-            throw new IllegalArgumentException("Erro: CPF, e-mail ou senha inválidos.");
+            throw new IllegalArgumentException("Erro: CPF ou senha inválidos.");
         }
         return usuarioAutenticado;
     }
 
     private void validarCredenciais(String login, String senha) {
-        if (!isValidCPF(login) && !isValidEmail(login)) {
-            throw new IllegalArgumentException("Erro: O campo de login deve ser um CPF válido (11 dígitos) ou um e-mail.");
+        if (!isValidCPF(login)) {
+            throw new IllegalArgumentException("Erro: O campo de login deve ser um CPF válido com 11 dígitos.");
         }
 
         if (!isValidSenha(senha)) {
@@ -36,11 +36,6 @@ public class LoginBO {
     private boolean isValidCPF(String cpf) {
         String cpfRegex = "\\d{11}";
         return cpf != null && cpf.matches(cpfRegex);
-    }
-
-    private boolean isValidEmail(String email) {
-        String emailRegex = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
-        return email != null && email.matches(emailRegex);
     }
 
     private boolean isValidSenha(String senha) {

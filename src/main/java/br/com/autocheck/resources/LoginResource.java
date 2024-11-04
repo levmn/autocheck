@@ -29,7 +29,7 @@ public class LoginResource {
             return Response.ok(usuarioAutenticado).build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.UNAUTHORIZED)
-                    .entity("Erro: CPF, e-mail ou senha inválidos.").build();
+                    .entity("Erro: CPF ou senha inválidos.").build();
         } catch (SQLException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Erro ao autenticar usuário: " + e.getMessage()).build();
