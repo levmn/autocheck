@@ -51,15 +51,18 @@ maneira eficiente.
 
 3. Adicione o `ojdbc11.jar` ao classpath do projeto.
 
-   - **Eclipse:** No Eclipse, é necessário adicionar o arquivo `ojdbc11.jar` ao classpath do projeto manualmente. Para fazer isso:
-     - Clique com o botão direito no projeto **> Properties > Java Build Path > Libraries > Add External JARs...**
-     - Selecione o arquivo `ojdbc11.jar` na pasta **jdbc**.
+    - **Eclipse:** No Eclipse, é necessário adicionar o arquivo `ojdbc11.jar` ao classpath do projeto manualmente. Para
+      fazer isso:
+        - Clique com o botão direito no projeto **> Properties > Java Build Path > Libraries > Add External JARs...**
+        - Selecione o arquivo `ojdbc11.jar` na pasta **jdbc**.
 
-   - **IntelliJ:** No IntelliJ, a inclusão do `ojdbc11.jar` no classpath não é necessária, pois o IntelliJ lida com as dependências automaticamente.
+    - **IntelliJ:** No IntelliJ, a inclusão do `ojdbc11.jar` no classpath não é necessária, pois o IntelliJ lida com as
+      dependências automaticamente.
 
-4. **Inicie a aplicação:** A classe Main localizada no pacote **br.com.autocheck.app** é a responsável por subir o servidor e iniciar o projeto. Para executá-la:
+4. **Inicie a aplicação:** A classe Main localizada no pacote **br.com.autocheck.app** é a responsável por subir o
+   servidor e iniciar o projeto. Para executá-la:
 
-   - Navegue até a classe Main em `src/br/com/autocheck/app/Main.java`.
-   - Execute a classe Main para iniciar o servidor com o Grizzly HTTP.
+    - Navegue até a classe Main em `src/br/com/autocheck/app/Main.java`.
+    - Execute a classe Main para iniciar o servidor com o Grizzly HTTP.
 
 A aplicação ficará disponível em http://localhost:8080/.

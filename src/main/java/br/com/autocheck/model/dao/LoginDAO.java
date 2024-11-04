@@ -17,14 +17,18 @@ public class LoginDAO {
     }
 
     public String inserir(Usuario usuario, Login login) throws SQLException {
-        String sql = "INSERT INTO tb_login (id_usuario, login_usuario, senha_usuario) VALUES (seq_tb_usuario_id.NEXTVAL, ?, ?)";
+        String sql = "INSERT INTO tb_login (id_usuario, login_usuario, senha_usuario) VALUES (?, ?, ?)";
 
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setInt(1, usuario.getId());
-        stmt.setString(2, login.getLogin());
-        stmt.setString(3, login.getSenha());
-        stmt.execute();
-        stmt.close();
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, usuario.getId());
+            stmt.setString(2, login.getLogin());
+            stmt.setString(3, login.getSenha());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Erro ao inserir login: " + e.getMessage());
+        }
 
         return "Login realizado com sucesso.";
     }

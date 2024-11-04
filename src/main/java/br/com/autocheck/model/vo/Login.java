@@ -6,7 +6,7 @@ public class Login {
     private String senha;
 
     public Login(Usuario usuario, String login, String senha) {
-
+        this.usuario = usuario;
         this.login = login;
         this.senha = senha;
     }
