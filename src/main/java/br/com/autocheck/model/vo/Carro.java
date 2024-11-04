@@ -7,17 +7,10 @@ public class Carro {
     private String modelo;
     private String anoFabricacao;
     private String anoModelo;
+    private Usuario usuario;
 
     public Carro() {
 
-    }
-
-    public Carro(String chassi, String marca, String modelo, String anoFabricacao, String anoModelo) {
-        this.chassi = chassi;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.anoFabricacao = anoFabricacao;
-        this.anoModelo = anoModelo;
     }
 
     public Carro(int id, String chassi, String marca, String modelo, String anoFabricacao, String anoModelo) {
@@ -77,10 +70,25 @@ public class Carro {
         this.anoModelo = anoModelo;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     @Override
     public String toString() {
-        return "Carro [id=" + id + ", chassi=" + chassi + ", marca=" + marca + ", modelo=" + modelo + ", anoFabricacao="
-                + anoFabricacao + ", anoModelo=" + anoModelo + "]";
+        return "Carro{" +
+                "id=" + id +
+                ", chassi='" + chassi + '\'' +
+                ", marca='" + marca + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", anoFabricacao='" + anoFabricacao + '\'' +
+                ", anoModelo='" + anoModelo + '\'' +
+                ", usuario=" + usuario +
+                '}';
     }
 
 }

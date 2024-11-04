@@ -61,7 +61,12 @@ public class Oficina {
 
     @Override
     public String toString() {
-        return "Oficina [id=" + id + ", unidade=" + unidade + ", cep=" + cep + ", numeroEndereco=" + numeroEndereco
-                + ", responsavel=" + responsavel + "]";
+        return "Oficina{" +
+                "id=" + id +
+                ", unidade='" + unidade + '\'' +
+                ", cep='" + cep + '\'' +
+                ", numeroEndereco=" + numeroEndereco +
+                ", responsavel='" + responsavel + '\'' +
+                '}';
     }
 }

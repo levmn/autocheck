@@ -15,7 +15,7 @@ public class CarroController {
 
     public String cadastrarCarro(Carro carro, Usuario usuario) {
         try {
-            return carroBO.inserirCarro(carro, usuario);
+            return carroBO.inserirCarro(carro);
         } catch (IllegalArgumentException e) {
             return "Erro de validação: " + e.getMessage();
         } catch (SQLException e) {

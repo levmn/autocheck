@@ -2,7 +2,6 @@ package br.com.autocheck.bo;
 
 import br.com.autocheck.model.dao.CarroDAO;
 import br.com.autocheck.model.vo.Carro;
-import br.com.autocheck.model.vo.Usuario;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -15,8 +14,8 @@ public class CarroBO {
         this.carroDAO = new CarroDAO();
     }
 
-    public String inserirCarro(Carro carro, Usuario usuario) throws SQLException {
-        if (usuario == null || usuario.getId() == 0) {
+    public String inserirCarro(Carro carro) throws SQLException {
+        if (carro.getUsuario() == null || carro.getUsuario().getId() == 0) {
             throw new IllegalArgumentException("Usuário inválido. Um carro deve estar vinculado a um usuário.");
         }
 
@@ -29,7 +28,7 @@ public class CarroBO {
         }
 
         String resultado = carroDAO.inserir(carro);
-        carroDAO.inserirUsuarioCarro(carro, usuario);
+        carroDAO.inserirUsuarioCarro(carro, carro.getUsuario());
         return resultado + " Carro vinculado ao usuário com sucesso!";
     }
 

@@ -37,6 +37,10 @@ public class Peca {
 
     @Override
     public String toString() {
-        return "Peca [id=" + id + ", nome=" + nome + ", valor=" + valor + "]";
+        return "Peca{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", valor=" + valor +
+                '}';
     }
 }

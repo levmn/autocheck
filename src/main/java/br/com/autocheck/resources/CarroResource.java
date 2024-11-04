@@ -1,6 +1,7 @@
 package br.com.autocheck.resources;
 
 import br.com.autocheck.bo.CarroBO;
+import br.com.autocheck.model.dao.UsuarioDAO;
 import br.com.autocheck.model.vo.Carro;
 import br.com.autocheck.model.vo.Usuario;
 import jakarta.ws.rs.*;
@@ -13,13 +14,27 @@ import java.util.List;
 public class CarroResource {
 
     private CarroBO carroBO = new CarroBO();
+    private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response cadastro(Carro carro, @Context UriInfo uriInfo) throws SQLException {
-        Usuario usuario = new Usuario();
+        if (carro.getUsuario() == null || carro.getUsuario().getId() == 0) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Usuário inválido. Um carro deve estar vinculado a um usuário.")
+                    .build();
+        }
 
-        String resultado = carroBO.inserirCarro(carro, usuario);
+        Usuario usuario = usuarioDAO.buscar(carro.getUsuario().getId());
+        if (usuario == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("Usuário não encontrado.")
+                    .build();
+        }
+
+        carro.setUsuario(usuario);
+
+        String resultado = carroBO.inserirCarro(carro);
 
         UriBuilder builder = uriInfo.getAbsolutePathBuilder();
         builder.path(Integer.toString(carro.getId()));

@@ -53,7 +53,11 @@ public class Orcamento {
 
     @Override
     public String toString() {
-        return "Orcamento [valorFinal=" + valorFinal + ", valorPecas=" + valorPecas + ", valorMaoObra=" + valorMaoObra
-                + ", dataHora=" + dataHora + "]";
+        return "Orcamento{" +
+                "valorFinal=" + valorFinal +
+                ", valorPecas=" + valorPecas +
+                ", valorMaoObra=" + valorMaoObra +
+                ", dataHora=" + dataHora +
+                '}';
     }
 }

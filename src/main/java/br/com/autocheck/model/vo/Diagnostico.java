@@ -61,7 +61,12 @@ public class Diagnostico {
 
     @Override
     public String toString() {
-        return "Diagnostico [id=" + id + ", codigoFalha=" + codigoFalha + ", categoria=" + categoria + ", descricao="
-                + descricao + ", descricaoProblema=" + descricaoProblema + "]";
+        return "Diagnostico{" +
+                "id=" + id +
+                ", codigoFalha='" + codigoFalha + '\'' +
+                ", categoria='" + categoria + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", descricaoProblema='" + descricaoProblema + '\'' +
+                '}';
     }
 }

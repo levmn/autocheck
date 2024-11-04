@@ -37,7 +37,11 @@ public class Login {
 
     @Override
     public String toString() {
-        return "Login [usuario=" + usuario + ", login=" + login + ", senha=" + senha + "]";
+        return "Login{" +
+                "usuario=" + usuario +
+                ", login='" + login + '\'' +
+                ", senha='" + senha + '\'' +
+                '}';
     }
 
 }

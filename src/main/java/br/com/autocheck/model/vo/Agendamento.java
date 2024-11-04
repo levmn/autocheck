@@ -33,6 +33,9 @@ public class Agendamento {
 
     @Override
     public String toString() {
-        return "Agendamento [dataHora=" + dataHora + ", disponivel=" + disponivel + "]";
+        return "Agendamento{" +
+                "dataHora=" + dataHora +
+                ", disponivel=" + disponivel +
+                '}';
     }
 }
