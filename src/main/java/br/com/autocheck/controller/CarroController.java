@@ -1,7 +1,6 @@
 package br.com.autocheck.controller;
 
 import br.com.autocheck.bo.CarroBO;
-import br.com.autocheck.model.dao.CarroDAO;
 import br.com.autocheck.model.vo.Carro;
 import br.com.autocheck.model.vo.Usuario;
 
@@ -10,8 +9,8 @@ import java.sql.SQLException;
 public class CarroController {
     private CarroBO carroBO;
 
-    public CarroController(CarroDAO carroDAO) {
-        this.carroBO = new CarroBO(carroDAO);
+    public CarroController() {
+        this.carroBO = new CarroBO();
     }
 
     public String cadastrarCarro(Carro carro, Usuario usuario) {

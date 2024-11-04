@@ -16,8 +16,8 @@ public class CarroMain {
         try {
             conn = conexao.conexao();
 
-            CarroDAO carroDAO = new CarroDAO(conn);
-            CarroController carroController = new CarroController(carroDAO);
+            CarroDAO carroDAO = new CarroDAO();
+            CarroController carroController = new CarroController();
 
             // Cria um usuário (exemplo)
             Usuario usuario = new Usuario(1, "João Silva", "12345678901", "Rua A, 123", "21987654321");

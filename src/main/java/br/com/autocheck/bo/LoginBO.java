@@ -32,7 +32,6 @@ public class LoginBO {
         return loginDAO.inserir(usuario, novoLogin);
     }
 
-
     private void validarCredenciais(String login, String senha) {
         if (!isValidCPF(login)) {
             System.out.println("Validação de CPF falhou.");

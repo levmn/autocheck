@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class UsuarioMain {
     public static void main(String[] args) {
         UsuarioController usuarioController = new UsuarioController();
-        LoginController loginController = new LoginController(); // Instancia o LoginController
+        LoginController loginController = new LoginController();
 
         // Teste de inserção de usuário
         System.out.println("Teste de Inserção:");

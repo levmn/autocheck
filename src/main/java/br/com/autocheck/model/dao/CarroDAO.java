@@ -1,5 +1,6 @@
 package br.com.autocheck.model.dao;
 
+import br.com.autocheck.connection.Conexao;
 import br.com.autocheck.model.vo.Carro;
 import br.com.autocheck.model.vo.Usuario;
 
@@ -13,8 +14,8 @@ import java.util.List;
 public class CarroDAO {
     private Connection conn;
 
-    public CarroDAO(Connection connection) {
-        this.conn = connection;
+    public CarroDAO() {
+        this.conn = new Conexao().conexao();
     }
 
     public String inserir(Carro carro) throws SQLException {
@@ -46,6 +47,31 @@ public class CarroDAO {
             if (generatedKeys != null) generatedKeys.close();
             if (stmt != null) stmt.close();
         }
+    }
+
+    public Carro buscar(int id) throws SQLException {
+        String sql = "SELECT * FROM tb_carro WHERE id_carro = ?";
+        Carro carro = null;
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                carro = new Carro();
+                carro.setId(rs.getInt(1));
+                carro.setChassi(rs.getString(2));
+                carro.setMarca(rs.getString(3));
+                carro.setModelo(rs.getString(4));
+                carro.setAnoFabricacao(rs.getString(5));
+                carro.setAnoModelo(rs.getString(6));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Erro ao buscar o carro pelo id: " + id, e);
+        }
+
+        return carro;
     }
 
 
