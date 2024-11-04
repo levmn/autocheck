@@ -6,6 +6,7 @@ import br.com.autocheck.model.vo.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LoginDAO {
@@ -37,5 +38,38 @@ public class LoginDAO {
         stmt.close();
 
         return "Login removido com sucesso!";
+    }
+
+    public Login autenticar(String login, String senha) throws SQLException {
+        String sql = "SELECT l.senha, u.id, u.nome, u.cpf, u.email, u.endereco, u.telefone " +
+                "FROM login l " +
+                "JOIN usuario u ON l.id_usuario = u.id " +
+                "WHERE (u.cpf = ? OR u.email = ?) AND l.senha = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, login);
+            stmt.setString(2, login);
+            stmt.setString(3, senha);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Usuario usuario = new Usuario();
+                    usuario.setId(rs.getInt("id"));
+                    usuario.setNome(rs.getString("nome"));
+                    usuario.setCpf(rs.getString("cpf"));
+//                    usuario.setEmail(rs.getString("email"));
+                    usuario.setEndereco(rs.getString("endereco"));
+                    usuario.setTelefone(rs.getString("telefone"));
+
+                    Login loginObj = new Login(usuario, login, senha);
+                    return loginObj;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Erro ao autenticar usuário: " + e.getMessage());
+        }
+
+        return null;
     }
 }
